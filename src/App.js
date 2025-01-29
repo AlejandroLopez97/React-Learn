@@ -38,14 +38,17 @@ function App() {
           setSearchValue={setSearchValue}
         />
 
-        <TodoList>
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
+        <TodoList 
+          searchValue = {searchValue}
+          setSearchValue = {setSearchValue}
+        >
+          
           {defaultTodos.map(todo => (
             <TodoItem 
               key = {todo.text} 
               text = {todo.text}
               completed = {todo.completed}
+              
             />
           ))}
         </TodoList>
