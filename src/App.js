@@ -22,6 +22,15 @@ function App() {
   const completedTodos = todos.filter(todo => !!todo.completed).length; //como el estado es un filtro, busco los que cuentan con la propiedad completed como true, considerado un estado derivado de todos
   const totalTodos = todos.length; //los cuento todos
 
+  //Estado derivado de la busqueda
+  const searchedTodos = todos.filter(
+    (todo) => {
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase();
+      return todoText.includes(searchText); //Convertimos los dos textos en minusculas para que la busqueda la haga sin importar si esta en mayus
+    }
+  );
+
   //console.log('los usuarios buscan todos de ' + searchValue);
 
   return (
@@ -38,17 +47,12 @@ function App() {
           setSearchValue={setSearchValue}
         />
 
-        <TodoList 
-          searchValue = {searchValue}
-          setSearchValue = {setSearchValue}
-        >
-          
-          {defaultTodos.map(todo => (
+        <TodoList>          
+          {searchedTodos.map(todo => (
             <TodoItem 
               key = {todo.text} 
               text = {todo.text}
-              completed = {todo.completed}
-              
+              completed = {todo.completed}              
             />
           ))}
         </TodoList>
