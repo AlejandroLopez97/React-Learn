@@ -31,6 +31,7 @@ function App() {
     }
   );
 
+  //Estado derivado de los todos completados, donde se utiliza el actualizador del estado
   const completeTodo = (text) =>{
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex((item) => item.text === text);
@@ -38,6 +39,7 @@ function App() {
     setTodos(newTodos);
   };
 
+  //Estado derivado de los todos eliminados, donde se utiliza el actualizador del estado
   const onDelete = (text) => {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex((item) => item.text === text);
