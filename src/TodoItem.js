@@ -9,28 +9,17 @@ function TodoItem(props){
         {/*Se utliza operador ternario en dentro de las llaves con la propiedad que se recibe*/}
 
         <CompleteIcon 
-          onClick = {props.onCompleted}
+          onComplete = {props.onCompleted}
+          completed = {props.completed}
         />
-        {/* <span 
-          className={`Icon Icon-check ${props.completed && "Icon-check--active"}`}
-          onClick={props.onCompleted}
-          > 
-          V
-        </span>  */}
 
         <p className={`TodoItem-p ${props.completed && "TodoItem-p--complete"}`}>
           {props.text}
         </p>
 
         <DeleteIcon
-          onClick = {props.onDeleted}
+          onDelete = {props.onDeleted}
         />
-        {/* <span 
-          className="Icon Icon-delete"
-          onClick={props.onDeleted}
-        >
-          X
-        </span> */}
       </li>
     );
   }
