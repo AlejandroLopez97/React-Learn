@@ -10,10 +10,12 @@ const iconTypes = {
     "delete": (color) => <DeleteSVG className="Icon-svg" fill={color}/>
 }
 
-function TodoIcon({ type, color }){
+//Debo recibir el evento clic
+function TodoIcon({ type, color, onClick }){
     return(
         <span
             className = {`Icon-container Icon-container-${type}`}
+            onClick = {onClick}
         >
             {iconTypes[type](color)} {/**En los parantesis le envio la propiedad que recibo como si fuese una función */}
         </span>
