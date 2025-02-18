@@ -13,9 +13,33 @@ const defaultTodos = [
   {text: 'Dormir', completed: false},
 ];
 
+//Se crea un customHooks
+function useLocalStorage(itemName, initialValue){
+  
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
+  
+  if(!localStorageItem){
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
+  }else{
+    parsedItem = JSON.parse(localStorageItem);
+  }
+  
+  const [item, setItem] = React.useState(parsedItem);
+
+  //Funcion constante que guarda el estado y en el localstorage
+  const saveItem = (newItem) =>{
+    localStorage.setItem(itemName, JSON.stringify(newItem))
+    setItem(newItem);
+  };
+
+  return [item, saveItem];
+}
+
 function App() {
 
-  const [todos, setTodos] = React.useState(defaultTodos); //Estado que me permite contar la lista y enviarse al todoCounter como props
+  const [todos, saveTodos] = useLocalStorage('TODO',[]); //Estado que me permite contar la lista y enviarse al todoCounter como props
 
   const [searchValue, setSearchValue] = React.useState(''); //Estado que me permite manejar la busqueda del input y enviarse al todoSearch y al todoList para filtrar
 
@@ -31,12 +55,13 @@ function App() {
     }
   );
 
+  
   //Estado derivado de los todos completados, donde se utiliza el actualizador del estado
   const completeTodo = (text) =>{
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex((item) => item.text === text);
     newTodos[todoIndex].completed = true;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   //Estado derivado de los todos eliminados, donde se utiliza el actualizador del estado
@@ -44,7 +69,7 @@ function App() {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex((item) => item.text === text);
     newTodos.splice(todoIndex,1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
 
